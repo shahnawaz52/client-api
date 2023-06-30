@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.PORT || 3001
 
 // API Security
-app.use(helmet());
+// app.use(helmet());
 
 // handle CORS error;
 app.use(cors());

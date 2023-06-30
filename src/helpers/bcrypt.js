@@ -1,10 +1,19 @@
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 
-const hashPassword = (plainPassword) => {
+export default function hashPassword (plainPassword) {
     return new Promise((resolve) => {
         resolve(bcrypt.hashSync(plainPassword, saltRounds))
     })
 }
 
-export default hashPassword;
+export function comparePassword (plainPassword, passwordDB) {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(plainPassword, passwordDB, function (error, result) {
+            if(error) reject(error)
+
+            resolve(result);
+        })
+    })
+}
+

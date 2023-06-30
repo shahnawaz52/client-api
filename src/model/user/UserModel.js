@@ -1,13 +1,30 @@
 import UserSchema from "./UserSchema.js";
 
-const insertUser = userObj => {
+export default function insertUser  (userObj)  {
     return new Promise((resolve, reject) => {
         UserSchema(userObj)
-        .save()
-        .then((data) => resolve(data))
-        .catch((error) => reject(error))
+            .save()
+            .then((data) => resolve(data))
+            .catch((error) => reject(error))
     })
-
 }
 
-export default insertUser;
+export function getUserByEmail  (email)  {
+    return new Promise((resolve, reject) => {
+        if (!email) return false;
+
+        try {
+            UserSchema.findOne({ email })
+            .then((data) => {
+              resolve(data);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+//export default {insertUser, getUserByEmail};
